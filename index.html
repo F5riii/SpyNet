@@ -1,20 +1,115 @@
 <!DOCTYPE html>
-<a<html lang="en">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>SpyNet</title>
+        <title>SpyNet Network Control</title>
         <link rel="stylesheet" href="styles.css">
+        <script src="app.js" defer></script>
     </head>
     <body>
-        <header>
-            <h1>Welcome to SpyNet</h1>
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">SpyNet</p>
+                <h1>Network Control Center</h1>
+            </div>
+            <div class="status-pill">
+                <span class="status-dot"></span>
+                Automation online
+            </div>
         </header>
-        <main>
-            <p>This is a placeholder for the SpyNet project. More content will be added soon.</p>
+
+        <main class="layout">
+            <section class="panel overview-panel" aria-labelledby="overview-title">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Overview</p>
+                        <h2 id="overview-title">Infrastructure Status</h2>
+                    </div>
+                    <button id="refreshBtn" type="button">Refresh</button>
+                </div>
+
+                <div class="metrics" id="metrics"></div>
+            </section>
+
+            <section class="panel" aria-labelledby="devices-title">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Inventory</p>
+                        <h2 id="devices-title">Devices</h2>
+                    </div>
+                    <label class="field compact-field">
+                        <span>Filter</span>
+                        <select id="typeFilter">
+                            <option value="all">All</option>
+                            <option value="Server">Servers</option>
+                            <option value="Switch">Switches</option>
+                            <option value="Router">Routers</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="device-grid" id="deviceGrid"></div>
+            </section>
+
+            <section class="panel" aria-labelledby="automation-title">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Automation</p>
+                        <h2 id="automation-title">Run Network Actions</h2>
+                    </div>
+                </div>
+
+                <form class="automation-form" id="automationForm">
+                    <label class="field">
+                        <span>Target device</span>
+                        <select id="deviceSelect"></select>
+                    </label>
+
+                    <label class="field">
+                        <span>Action</span>
+                        <select id="actionSelect">
+                            <option value="health-check">Health check</option>
+                            <option value="backup-config">Backup configuration</option>
+                            <option value="reload-service">Reload service</option>
+                            <option value="update-firmware">Schedule firmware update</option>
+                        </select>
+                    </label>
+
+                    <label class="field">
+                        <span>Command preview</span>
+                        <textarea id="commandBox" rows="5"></textarea>
+                    </label>
+
+                    <div class="button-row">
+                        <button type="submit">Run Action</button>
+                        <button id="saveTemplateBtn" class="secondary" type="button">Save Template</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="panel" aria-labelledby="tasks-title">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Queue</p>
+                        <h2 id="tasks-title">Automation Tasks</h2>
+                    </div>
+                </div>
+
+                <ul class="task-list" id="taskList"></ul>
+            </section>
+
+            <section class="panel wide-panel" aria-labelledby="log-title">
+                <div class="section-header">
+                    <div>
+                        <p class="eyebrow">Logs</p>
+                        <h2 id="log-title">Activity Log</h2>
+                    </div>
+                    <button id="clearLogBtn" class="secondary" type="button">Clear</button>
+                </div>
+
+                <div class="log-box" id="activityLog" aria-live="polite"></div>
+            </section>
         </main>
-        <footer>
-            <p>&copy; 2024 SpyNet. All rights reserved.</p>
-        </footer>
     </body>
 </html>
